@@ -148,6 +148,8 @@ public class DocumentControllerTest {
                 .build();
 
         when(documentService.initBulkUpload(4)).thenReturn(initResponse);
+        List<MultipartFile> mockCachedList = new ArrayList<>();
+        when(documentService.cacheFiles(any(MultipartFile[].class))).thenReturn(mockCachedList);
 
         // Act
         ResponseEntity<ApiResponse<?>> response = documentController.uploadBulkFiles(files);
@@ -159,7 +161,7 @@ public class DocumentControllerTest {
         BulkUploadInitResponse data = (BulkUploadInitResponse) response.getBody().getData();
         assertEquals("batch-123", data.getBatchId());
         verify(documentService).initBulkUpload(4);
-        verify(documentService).processBulkFilesAsync(eq(files), eq("batch-123"));
+        verify(documentService).processBulkFilesAsync(eq(mockCachedList), eq("batch-123"));
         verify(documentService, never()).uploadSingleFile(any());
     }
 

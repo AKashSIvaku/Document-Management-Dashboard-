@@ -85,8 +85,9 @@ public class DocumentController {
         }
 
         // Large batch (4+ files): process asynchronously
+        List<MultipartFile> cachedFiles = documentService.cacheFiles(files);
         BulkUploadInitResponse initResponse = documentService.initBulkUpload(files.length);
-        documentService.processBulkFilesAsync(files, initResponse.getBatchId());
+        documentService.processBulkFilesAsync(cachedFiles, initResponse.getBatchId());
 
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(
                 ApiResponse.success(
