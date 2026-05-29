@@ -1,0 +1,98 @@
+/* =============================================
+   Toast Container & Cards Styles (Light Mode)
+   ============================================= */
+
+.toast-overlay {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  pointer-events: none;
+}
+
+.toast-alert {
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  position: relative;
+  overflow: hidden;
+  animation: toastSlideIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes toastSlideIn {
+  from { transform: translateX(110%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Left colored accent border line */
+.toast-alert::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.toast-alert--SUCCESS::before { background: var(--success); }
+.toast-alert--ERROR::before { background: var(--error); }
+.toast-alert--WARNING::before { background: var(--warning); }
+.toast-alert--INFO::before { background: var(--accent); }
+
+/* Icon */
+.toast-alert__icon {
+  flex-shrink: 0;
+  font-size: 1.1rem;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+/* Body */
+.toast-alert__body {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-alert__message {
+  font-size: 0.82rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-secondary);
+  margin: 0;
+  word-break: break-word;
+}
+
+/* Close button (×) */
+.toast-alert__close {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.6;
+  transition: all 0.2s ease;
+  padding: 0 4px;
+  align-self: flex-start;
+}
+
+.toast-alert__close:hover {
+  opacity: 1;
+  color: var(--text-primary);
+}

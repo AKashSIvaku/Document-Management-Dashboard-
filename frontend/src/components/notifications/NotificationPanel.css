@@ -1,0 +1,240 @@
+/* =============================================
+   Notification Panel (Dropdown) Styles
+   ============================================= */
+
+.notif-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: 360px;
+  max-width: calc(100vw - 48px);
+  background: #0f172a;
+  background-image: linear-gradient(to bottom, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.98) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(51, 65, 85, 0.5);
+  border-radius: 16px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  animation: panelFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top right;
+  overflow: hidden;
+}
+
+@keyframes panelFadeIn {
+  from { opacity: 0; transform: scale(0.96) translateY(-8px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* ---- Panel Header ---- */
+.notif-panel__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.notif-panel__title {
+  font-size: 0.92rem;
+  font-weight: 750;
+  color: #f1f5f9;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.notif-panel__badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #a78bfa;
+  background: rgba(139, 92, 246, 0.12);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.notif-panel__clear-btn {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8b5cf6;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.notif-panel__clear-btn:hover {
+  color: #c4b5fd;
+  background: rgba(139, 92, 246, 0.08);
+}
+
+/* ---- Scrollable Items Container ---- */
+.notif-panel__list {
+  max-height: 420px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.notif-panel__list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.notif-panel__list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.notif-panel__list::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: 2px;
+}
+
+.notif-panel__list::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.4);
+}
+
+/* ---- Empty List State ---- */
+.notif-panel__empty {
+  padding: 48px 24px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  color: #94a3b8;
+}
+
+.notif-panel__empty-icon {
+  font-size: 2.2rem;
+  opacity: 0.35;
+}
+
+.notif-panel__empty-text {
+  font-size: 0.82rem;
+  font-weight: 500;
+}
+
+/* ---- Single Item Row ---- */
+.notif-panel-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+  position: relative;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.notif-panel-item:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.notif-panel-item--unread {
+  background: rgba(139, 92, 246, 0.025);
+}
+
+/* Left colored borders based on type */
+.notif-panel-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+}
+
+.notif-panel-item--SUCCESS::before { background: #10b981; }
+.notif-panel-item--ERROR::before { background: #ef4444; }
+.notif-panel-item--WARNING::before { background: #f59e0b; }
+.notif-panel-item--INFO::before { background: #3b82f6; }
+
+/* Item Icon */
+.notif-panel-item__icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  background: rgba(30, 41, 59, 0.5);
+}
+
+.notif-panel-item--SUCCESS .notif-panel-item__icon { background: rgba(16, 185, 129, 0.1); }
+.notif-panel-item--ERROR .notif-panel-item__icon { background: rgba(239, 68, 68, 0.1); }
+.notif-panel-item--WARNING .notif-panel-item__icon { background: rgba(245, 158, 11, 0.1); }
+.notif-panel-item--INFO .notif-panel-item__icon { background: rgba(59, 130, 246, 0.1); }
+
+/* Item Content */
+.notif-panel-item__content {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.notif-panel-item__message {
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.45;
+  color: #cbd5e1;
+  word-break: break-word;
+}
+
+.notif-panel-item--unread .notif-panel-item__message {
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+.notif-panel-item__time {
+  font-size: 0.68rem;
+  color: #64748b;
+}
+
+/* Actions Block (Unread Dot / Delete Button) */
+.notif-panel-item__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.notif-panel-item__unread-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #8b5cf6;
+  box-shadow: 0 0 8px #8b5cf6;
+}
+
+.notif-panel-item__delete-btn {
+  background: none;
+  border: none;
+  color: #475569;
+  font-size: 1.15rem;
+  line-height: 1;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: all 0.2s ease;
+}
+
+.notif-panel-item:hover .notif-panel-item__delete-btn {
+  opacity: 1;
+}
+
+.notif-panel-item__delete-btn:hover {
+  background: rgba(239, 68, 68, 0.1);
+  color: #f87171;
+}
